@@ -1,0 +1,28 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: 5g-cluster 
+servers: 1
+agents: 2 
+options:
+  k3s:
+    extraArgs: 
+      - arg: "--disable=traefik" # Disable the default Traefik ingress controller
+        nodeFilters:
+          - server:* # Applies to the control-plane node
+      - arg: "--flannel-backend=none" # Explicitly disable Flannel as the CNI plugin
+        nodeFilters:
+          - server:* # Applies to the control-plane node
+      - arg: "--node-name=master-node" # Name for the control-plane node
+        nodeFilters:
+          - server:* # Applies to the control-plane node
+    nodeLabels: # Apply labels to Kubernetes nodes
+      - label: "node.kubernetes.io/control-plane=true" # Label for control-plane nodes
+        nodeFilters:
+          - server:* # Apply to control-plane node
+      - label: "node.kubernetes.io/data-plane=true" # Label for worker nodes
+        nodeFilters:
+          - agent:* # Apply to worker nodes
+  kubeconfig:
+    updateDefaultKubeconfig: true # Add the cluster to the default kubeconfig
+    switchCurrentContext: true # Set this cluster as the current kubeconfig context
