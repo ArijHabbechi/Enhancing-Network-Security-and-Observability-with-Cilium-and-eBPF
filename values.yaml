@@ -1,0 +1,39 @@
+# Cilium general configuration
+kubeProxyReplacement: true
+
+# IP Address Management
+ipam:
+  mode: cluster-pool
+
+# Hubble Configuration
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+    nodeSelector:
+      node-role.kubernetes.io/monitoring: "true" # Hubble Relay runs on monitoring nodes
+  ui:
+    enabled: true
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+
+# DaemonSet Node Selector (Cilium DaemonSet + Hubble Agent on data plane nodes)
+nodeSelector:
+  node-role.kubernetes.io/data-plane: "true"
+
+# Operator configuration
+operator:
+  enabled: true
+  nodeSelector:
+    node-role.kubernetes.io/control-plane: "true" # Cilium Operator runs on the control plane
+
+# Prometheus metrics for Hubble Relay and Cilium
+prometheus:
+  enabled: true
+  port: 9090
