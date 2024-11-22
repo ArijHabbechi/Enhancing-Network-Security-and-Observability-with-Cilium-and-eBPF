@@ -1,4 +1,4 @@
-# Enable kube-proxy replacement with Cilium's eBPF-based implementation
+# Cilium general configuration
 kubeProxyReplacement: true
 
 # IP Address Management
@@ -10,9 +10,6 @@ hubble:
   enabled: true
   relay:
     enabled: true
-    listenAddress: ":4245"
-    nodeSelector:
-      node-role.kubernetes.io/monitoring: "true"  # Hubble Relay runs on monitoring nodes
   ui:
     enabled: true
   metrics:
@@ -24,22 +21,14 @@ hubble:
       - icmp
       - http
 
-# Prometheus Metrics
-prometheus:
-  enabled: true
+# DaemonSet Node Selector (Cilium DaemonSet + Hubble Agent on data plane nodes)
+nodeSelector: {}
 
-# Cilium DaemonSet Configuration
-nodeSelector: {}  # Allow Cilium DaemonSet to run on all nodes
-
-# Operator Configuration
+# Operator configuration
 operator:
   enabled: true
-  nodeSelector:
-    node-role.kubernetes.io/control-plane: "true"  # Run the Cilium Operator on the control-plane node
 
-# Enable eBPF Features
-bpf:
-  masquerade: true  # Enable eBPF-based masquerading
-  nodePort:
-    enabled: true   # Use eBPF for Kubernetes NodePort services
-    bindProtection: true
+# Prometheus metrics for Hubble Relay and Cilium
+prometheus:
+  enabled: true
+  port: 9090
