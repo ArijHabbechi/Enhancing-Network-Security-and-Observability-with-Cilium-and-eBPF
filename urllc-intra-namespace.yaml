@@ -1,0 +1,13 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: frontend-to-backend
+  namespace: urllc
+spec:
+  endpointSelector:
+    matchLabels:
+      app: backend-service
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app: frontend-service
