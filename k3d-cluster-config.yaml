@@ -15,9 +15,6 @@ options:
       - arg: "--flannel-backend=none"
         nodeFilters:
           - server:*
-      - arg: "--node-name=master-node"
-        nodeFilters:
-          - server:*
   kubeconfig:
     updateDefaultKubeconfig: true  # Add the cluster to the default kubeconfig
     switchCurrentContext: true    # Set this cluster as the current kubeconfig context
