@@ -1,0 +1,12 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: urllc-to-core
+  namespace: urllc
+spec:
+  endpointSelector: {}  # Apply to all pods in the urllc namespace
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            app: core-service
+            namespace: core

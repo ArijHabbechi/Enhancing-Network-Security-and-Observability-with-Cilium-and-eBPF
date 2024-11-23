@@ -1,0 +1,10 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: block-external-egress
+  namespace: urllc
+spec:
+  endpointSelector: {}  # Apply to all pods in the namespace
+  egressDeny:
+    - toEntities:
+        - world
