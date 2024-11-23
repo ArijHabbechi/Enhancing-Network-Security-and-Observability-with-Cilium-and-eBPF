@@ -37,7 +37,7 @@ kubectl apply -f urllc-block-egress.yaml -n urllc
 
 # Apply DNS allow policy for urllc
 echo "Applying DNS allow policy for urllc..."
-kubectl apply -f allow-dns.yaml -n urllc
+kubectl apply -f allow-dns5g.yaml -n urllc
 
 # Validate setup
 echo "Validating setup..."
