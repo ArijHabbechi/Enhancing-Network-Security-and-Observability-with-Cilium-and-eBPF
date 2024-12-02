@@ -1,0 +1,16 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: egress-restriction
+  namespace: tenant-b
+spec:
+  endpointSelector: {}
+  egress:
+    - toEntities:
+        - dns
+    - toPorts:
+        - ports:
+            - port: 53
+              protocol: UDP
+          rules:
+            dns: {}

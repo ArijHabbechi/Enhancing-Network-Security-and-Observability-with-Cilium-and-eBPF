@@ -1,0 +1,13 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-all
+  namespace: tenant-a
+spec:
+  endpointSelector: {}
+  ingress:
+  - fromEndpoints:
+      - matchLabels: {}
+  egress:
+  - toEndpoints:
+      - matchLabels: {}

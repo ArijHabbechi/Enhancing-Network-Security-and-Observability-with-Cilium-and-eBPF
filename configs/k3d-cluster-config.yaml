@@ -1,0 +1,20 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: 5g-cluster
+servers: 1
+agents: 3  
+options:
+  k3s:
+    extraArgs:
+      # Disable Traefik (default ingress controller)
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - server:*
+      # Explicitly disable Flannel CNI (Cilium will be used)
+      - arg: "--flannel-backend=none"
+        nodeFilters:
+          - server:*
+  kubeconfig:
+    updateDefaultKubeconfig: true  # Add the cluster to the default kubeconfig
+    switchCurrentContext: true    # Set this cluster as the current kubeconfig context

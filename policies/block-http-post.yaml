@@ -1,0 +1,22 @@
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: block-http-post
+  namespace: tenant-a
+spec:
+  endpointSelector:
+    matchLabels:
+      app: backend-service
+  ingress:
+  - fromEndpoints:
+      - matchLabels:
+          app: frontend-service
+    toPorts:
+    - ports:
+        - port: "80"
+          protocol: TCP
+      rules:
+        http:
+        - method: "POST"
+          action: DENY
+

@@ -1,0 +1,34 @@
+# Cilium general configuration
+kubeProxyReplacement: true
+
+# IP Address Management
+ipam:
+  mode: cluster-pool
+
+# Hubble Configuration
+hubble:
+  enabled: true
+  relay:
+    enabled: true
+  ui:
+    enabled: true
+  metrics:
+    enabled:
+      - dns
+      - drop
+      - tcp
+      - flow
+      - icmp
+      - http
+
+# DaemonSet Node Selector (Cilium DaemonSet + Hubble Agent on data plane nodes)
+nodeSelector: {}
+
+# Operator configuration
+operator:
+  enabled: true
+
+# Prometheus metrics for Hubble Relay and Cilium
+prometheus:
+  enabled: true
+  port: 9090
